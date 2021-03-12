@@ -48,16 +48,20 @@ const Word = ({ data }: Props) => {
                             ({
                                 definition,
                                 partOfSpeech,
-                                synonyms,
-                                antonyms,
+                                synonyms = [],
+                                antonyms = [],
                                 examples = [],
+                                similarTo = [],
+                                // ...rest
                             }) => {
+                                const similar = [...similarTo, ...synonyms];
+                                const opposites = [...antonyms];
                                 return (
                                     <div key={`${partOfSpeech}${definition}`}>
                                         <h1 className="text-lg italic">
                                             {partOfSpeech}
                                         </h1>
-                                        <div className="ml-3">
+                                        <div className="ml-3 md:ml-6">
                                             <p>{definition}</p>
                                             <div className="text-gray-500">
                                                 {examples.map((example) => (
@@ -66,13 +70,13 @@ const Word = ({ data }: Props) => {
                                                     </p>
                                                 ))}
                                             </div>
-                                            {synonyms && (
-                                                <div className="flex items-center gap-3 mt-2">
-                                                    <span className="text-green-600">
+                                            {similar.length > 0 && (
+                                                <div className="flex items-start gap-3 mt-3">
+                                                    <span className="mt-0.5 text-green-600">
                                                         Similar:
                                                     </span>
                                                     <div className="flex flex-wrap gap-3">
-                                                        {synonyms.map(
+                                                        {similar.map(
                                                             (synonym) => (
                                                                 <Chip
                                                                     key={
@@ -91,13 +95,13 @@ const Word = ({ data }: Props) => {
                                                     </div>
                                                 </div>
                                             )}
-                                            {antonyms && (
-                                                <div className="flex items-center gap-3 mt-2">
-                                                    <span className="text-red-600">
+                                            {opposites.length > 0 && (
+                                                <div className="flex items-start gap-3 mt-3">
+                                                    <span className="text-red-600 mt-0.5">
                                                         Opposite:
                                                     </span>
                                                     <div className="flex flex-wrap gap-3">
-                                                        {antonyms.map(
+                                                        {opposites.map(
                                                             (antonym) => (
                                                                 <Chip
                                                                     key={
