@@ -48,7 +48,7 @@ const Word = ({ data }: Props) => {
                                 examples = [],
                             }) => {
                                 return (
-                                    <div>
+                                    <div key={`${partOfSpeech}${definition}`}>
                                         <h1 className="text-lg italic">
                                             {partOfSpeech}
                                         </h1>
@@ -56,7 +56,9 @@ const Word = ({ data }: Props) => {
                                             <p>{definition}</p>
                                             <div className="text-gray-500">
                                                 {examples.map((example) => (
-                                                    <p>"{example}"</p>
+                                                    <p key={example}>
+                                                        "{example}"
+                                                    </p>
                                                 ))}
                                             </div>
                                             {synonyms && (
@@ -68,6 +70,9 @@ const Word = ({ data }: Props) => {
                                                         {synonyms.map(
                                                             (synonym) => (
                                                                 <Chip
+                                                                    key={
+                                                                        synonym
+                                                                    }
                                                                     onClick={() =>
                                                                         searchWord(
                                                                             synonym
@@ -90,6 +95,9 @@ const Word = ({ data }: Props) => {
                                                         {antonyms.map(
                                                             (antonym) => (
                                                                 <Chip
+                                                                    key={
+                                                                        antonym
+                                                                    }
                                                                     onClick={() =>
                                                                         searchWord(
                                                                             antonym
