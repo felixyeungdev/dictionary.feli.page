@@ -16,8 +16,9 @@ const IndexPage = ({ word, data }: Props) => {
     const [loading, setLoading] = useState(false);
 
     const onChange = async (value: string) => {
+        console.log({ value });
         if (!value) {
-            if (router.pathname !== "/") router.push("/");
+            // if (router.pathname !== "/") router.push("/");
             return;
         }
 
