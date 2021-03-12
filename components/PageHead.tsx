@@ -16,8 +16,6 @@ const PageHead = ({ word, data }: Props) => {
         ? `${word} definition: ${definitions} | Dictionary`
         : "Dictionary";
 
-    console.log(description);
-
     return (
         <Head>
             <meta name="twitter:title" content={displayTitle} />

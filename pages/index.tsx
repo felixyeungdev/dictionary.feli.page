@@ -11,7 +11,6 @@ interface Props {
 }
 
 const IndexPage = ({ word, data }: Props) => {
-    console.log(data);
     const router = useRouter();
 
     const onChange = async (value: string) => {
