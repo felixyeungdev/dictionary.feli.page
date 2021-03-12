@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Word from "../components/Word";
 import { IWord } from "../interfaces/word";
+import PageHead from "../components/PageHead";
 
 interface Props {
     word?: string;
@@ -36,6 +37,7 @@ const IndexPage = ({ word, data }: Props) => {
 
     return (
         <Content>
+            <PageHead word={word} data={data} />
             <div className="mt-3">
                 <SlowTextField
                     fullWidth
