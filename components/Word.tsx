@@ -37,73 +37,87 @@ const Word = ({ data }: Props) => {
                     )}
                     {syllables && <span>({syllables.list.join("-")})</span>}
                 </div>
-                <div className="space-y-3">
-                    {results.map(
-                        ({
-                            definition,
-                            partOfSpeech,
-                            synonyms,
-                            antonyms,
-                            examples = [],
-                        }) => {
-                            return (
-                                <div>
-                                    <h1 className="text-lg italic">
-                                        {partOfSpeech}
-                                    </h1>
-                                    <div className="ml-3">
-                                        <p>{definition}</p>
-                                        <div className="text-gray-500">
-                                            {examples.map((example) => (
-                                                <p>"{example}"</p>
-                                            ))}
+                {results && (
+                    <div className="space-y-3">
+                        {results.map(
+                            ({
+                                definition,
+                                partOfSpeech,
+                                synonyms,
+                                antonyms,
+                                examples = [],
+                            }) => {
+                                return (
+                                    <div key={`${partOfSpeech}${definition}`}>
+                                        <h1 className="text-lg italic">
+                                            {partOfSpeech}
+                                        </h1>
+                                        <div className="ml-3">
+                                            <p>{definition}</p>
+                                            <div className="text-gray-500">
+                                                {examples.map((example) => (
+                                                    <p key={example}>
+                                                        "{example}"
+                                                    </p>
+                                                ))}
+                                            </div>
+                                            {synonyms && (
+                                                <div className="flex items-center gap-3 mt-2">
+                                                    <span className="text-green-600">
+                                                        Similar:
+                                                    </span>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {synonyms.map(
+                                                            (synonym) => (
+                                                                <Chip
+                                                                    key={
+                                                                        synonym
+                                                                    }
+                                                                    onClick={() =>
+                                                                        searchWord(
+                                                                            synonym
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {synonym}
+                                                                </Chip>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {antonyms && (
+                                                <div className="flex items-center gap-3 mt-2">
+                                                    <span className="text-red-600">
+                                                        Opposite:
+                                                    </span>
+                                                    <div className="flex flex-wrap gap-3">
+                                                        {antonyms.map(
+                                                            (antonym) => (
+                                                                <Chip
+                                                                    key={
+                                                                        antonym
+                                                                    }
+                                                                    onClick={() =>
+                                                                        searchWord(
+                                                                            antonym
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    {antonym}
+                                                                </Chip>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )}
                                         </div>
-                                        {synonyms && (
-                                            <div className="flex items-center gap-3 mt-2">
-                                                <span className="text-green-600">
-                                                    Similar:
-                                                </span>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {synonyms.map((synonym) => (
-                                                        <Chip
-                                                            onClick={() =>
-                                                                searchWord(
-                                                                    synonym
-                                                                )
-                                                            }
-                                                        >
-                                                            {synonym}
-                                                        </Chip>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
-                                        {antonyms && (
-                                            <div className="flex items-center gap-3 mt-2">
-                                                <span className="text-green-600">
-                                                    Opposite:
-                                                </span>
-                                                <div className="flex flex-wrap gap-3">
-                                                    {antonyms.map((antonym) => (
-                                                        <Chip
-                                                            onClick={() =>
-                                                                searchWord(
-                                                                    antonym
-                                                                )
-                                                            }
-                                                        >
-                                                            {antonym}
-                                                        </Chip>
-                                                    ))}
-                                                </div>
-                                            </div>
-                                        )}
                                     </div>
-                                </div>
-                            );
-                        }
-                    )}
-                </div>
+                                );
+                            }
+                        )}
+                    </div>
+                )}
             </article>
             {/* <pre>{JSON.stringify(data, null, 4)}</pre> */}
         </div>

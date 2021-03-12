@@ -1,41 +1,33 @@
 import { Content, SlowTextField } from "@felipage/react-ui";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import Word from "../components/Word";
+import { IWord } from "../interfaces/word";
+import PageHead from "../components/PageHead";
 
 interface Props {
     word?: string;
+    data: IWord;
 }
 
-const IndexPage = ({ word }: Props) => {
-    const [fetchedData, setFetchedData] = useState<object>();
+const IndexPage = ({ word, data }: Props) => {
     const router = useRouter();
 
     const onChange = async (value: string) => {
         if (!value) {
-            router.push("/");
-            setFetchedData(undefined);
+            if (router.pathname !== "/") router.push("/");
             return;
         }
 
         if (
             router.query?.word === value.trim() &&
-            fetchedData &&
-            (fetchedData as any).word === value
+            data &&
+            (data as any).word === value
         )
             return;
 
-        if (router.query?.word !== value.trim())
-            router.push(`/search/${value}`, undefined, { shallow: true });
-
-        const response = await fetch(
-            `https://api.feli.page/v1/words/define?word=${encodeURIComponent(
-                value.toString()
-            )}`
-        );
-        const json = await response.json();
-        json.word = value;
-        setFetchedData(json);
+        if ((router.query?.word ?? "") !== value.trim())
+            router.push(`/search/${encodeURIComponent(value)}`, undefined, {});
     };
 
     useEffect(() => {
@@ -44,6 +36,7 @@ const IndexPage = ({ word }: Props) => {
 
     return (
         <Content>
+            <PageHead word={word} data={data} />
             <div className="mt-3">
                 <SlowTextField
                     fullWidth
@@ -54,7 +47,7 @@ const IndexPage = ({ word }: Props) => {
                 />
             </div>
             <div className="mt-3">
-                <Word data={fetchedData} />
+                <Word data={data} />
             </div>
         </Content>
     );
