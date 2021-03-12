@@ -13,7 +13,7 @@ const IndexPage = ({ word }: Props) => {
 
     const onChange = async (value: string) => {
         if (!value) {
-            router.push("/");
+            if (router.pathname !== "/") router.push("/");
             setFetchedData(undefined);
             return;
         }
@@ -25,7 +25,7 @@ const IndexPage = ({ word }: Props) => {
         )
             return;
 
-        if (router.query?.word !== value.trim())
+        if ((router.query?.word ?? "") !== value.trim())
             router.push(`/search/${value}`, undefined, { shallow: true });
 
         const response = await fetch(
@@ -34,7 +34,7 @@ const IndexPage = ({ word }: Props) => {
             )}`
         );
         const json = await response.json();
-        json.word = value;
+        if (!json.word) json.word = value;
         setFetchedData(json);
     };
 
