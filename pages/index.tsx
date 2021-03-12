@@ -26,7 +26,9 @@ const IndexPage = ({ word }: Props) => {
             return;
 
         if ((router.query?.word ?? "") !== value.trim())
-            router.push(`/search/${value}`, undefined, { shallow: true });
+            router.push(`/search/${encodeURIComponent(value)}`, undefined, {
+                shallow: true,
+            });
 
         const response = await fetch(
             `https://api.feli.page/v1/words/define?word=${encodeURIComponent(
