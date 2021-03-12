@@ -2,6 +2,8 @@ import { Chip } from "@felipage/react-ui";
 import { useRouter } from "next/router";
 import React from "react";
 import { IWord } from "../interfaces/word";
+import dynamic from "next/dynamic";
+const Speak = dynamic(() => import("./Speak"), { ssr: false });
 
 interface Props {
     data?: any;
@@ -26,7 +28,10 @@ const Word = ({ data }: Props) => {
     return (
         <div>
             <article className="">
-                <h1>{word}</h1>
+                <div className="flex items-center space-x-2">
+                    <h1>{word}</h1>
+                    <Speak word={word} />
+                </div>
                 <div className="flex space-x-2">
                     {pronunciation && (
                         <span>
