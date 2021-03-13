@@ -1,5 +1,5 @@
 import { Alert, Content, SlowTextField } from "@felipage/react-ui";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Word from "../components/Word";
 import { IWord } from "../interfaces/word";
@@ -14,6 +14,7 @@ interface Props {
 const IndexPage = ({ word, data }: Props) => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const onChange = async (value: string) => {
         console.log({ value });
@@ -55,6 +56,10 @@ const IndexPage = ({ word, data }: Props) => {
         };
     }, []);
 
+    useEffect(() => {
+        inputRef.current?.focus();
+    }, []);
+
     return (
         <>
             <Content>
@@ -66,6 +71,7 @@ const IndexPage = ({ word, data }: Props) => {
                         onChange={onChange}
                         value={word ?? ""}
                         placeholder="Start searching"
+                        ref={inputRef}
                     />
                 </div>
                 <div className="mt-3 mb-12">
