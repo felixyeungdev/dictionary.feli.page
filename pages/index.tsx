@@ -1,10 +1,11 @@
-import { Alert, Content, SlowTextField } from "@felipage/react-ui";
+import { Alert, Content, SlowDropdownTextField } from "@felipage/react-ui";
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import Word from "../components/Word";
 import { IWord } from "../interfaces/word";
 import PageHead from "../components/PageHead";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocalStorage } from "react-use";
 
 interface Props {
     word?: string;
@@ -15,6 +16,10 @@ const IndexPage = ({ word, data }: Props) => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [history, setHistory, clearHistory] = useLocalStorage<string[]>(
+        "search-history",
+        []
+    );
 
     const onChange = async (value: string) => {
         console.log({ value });
@@ -37,6 +42,12 @@ const IndexPage = ({ word, data }: Props) => {
     useEffect(() => {
         onChange(word ?? "");
     }, [word]);
+
+    useEffect(() => {
+        if (word && word.trim() !== "" && data.success !== false) {
+            setHistory(() => [...new Set([word, ...(history ?? [])])]);
+        }
+    }, [word, data]);
 
     useEffect(() => {
         let routeChangeStart = () => {
@@ -65,13 +76,15 @@ const IndexPage = ({ word, data }: Props) => {
             <Content>
                 <PageHead word={word} data={data} />
                 <div className="mt-3">
-                    <SlowTextField
+                    <SlowDropdownTextField
                         fullWidth
                         label="Word"
                         onChange={onChange}
                         value={word ?? ""}
                         placeholder="Start searching"
                         ref={inputRef}
+                        options={history!}
+                        id="search-history"
                     />
                 </div>
                 <div className="mt-3 mb-12">
