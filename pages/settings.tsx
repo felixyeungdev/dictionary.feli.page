@@ -1,10 +1,9 @@
 import { Button, Content } from "@felipage/react-ui";
-import { useRouter } from "next/router";
 import React from "react";
 import { useLocalStorage } from "react-use";
 
 const Settings = () => {
-    const [history, _setHistory, clearHistory] = useLocalStorage<string[]>(
+    const [history, , clearHistory] = useLocalStorage<string[]>(
         "search-history",
         []
     );
