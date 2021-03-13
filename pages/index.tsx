@@ -16,7 +16,7 @@ const IndexPage = ({ word, data }: Props) => {
     const router = useRouter();
     const [loading, setLoading] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [history, setHistory, clearHistory] = useLocalStorage<string[]>(
+    const [history, setHistory] = useLocalStorage<string[]>(
         "search-history",
         []
     );
