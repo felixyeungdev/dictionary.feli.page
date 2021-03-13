@@ -83,7 +83,7 @@ const IndexPage = ({ word, data }: Props) => {
                         value={word ?? ""}
                         placeholder="Start searching"
                         ref={inputRef}
-                        options={history!}
+                        options={history ?? []}
                         id="search-history"
                     />
                 </div>
