@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar as AppBarBase, IconButton, Tooltip } from "@felipage/react-ui";
+import { AppBar as AppBarBase, IconButton } from "@felipage/react-ui";
 import { HiOutlineBookOpen, HiOutlineCog } from "react-icons/hi";
 import { useRouter } from "next/router";
 
@@ -21,9 +21,7 @@ const AppBar = () => {
             onTitleClick={goHome}
             actions={
                 <>
-                    <Tooltip label="Settings">
-                        <IconButton Icon={HiOutlineCog} onClick={goSettings} />
-                    </Tooltip>
+                    <IconButton Icon={HiOutlineCog} onClick={goSettings} />
                 </>
             }
         />
