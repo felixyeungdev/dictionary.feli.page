@@ -1,15 +1,8 @@
-import { GetStaticPaths, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 
 export { default } from "../index";
 
-const getStaticPaths: GetStaticPaths = async () => {
-    return {
-        paths: [],
-        fallback: true,
-    };
-};
-
-const getStaticProps: GetStaticProps = async (context) => {
+const getServerSideProps: GetServerSideProps = async (context) => {
     const word = context.params?.word.toString();
     let data;
 
@@ -28,4 +21,4 @@ const getStaticProps: GetStaticProps = async (context) => {
     };
 };
 
-export { getStaticPaths, getStaticProps };
+export { getServerSideProps };
