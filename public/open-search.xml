@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>Feli Dictionary</ShortName>
+  <Description>Find definitions and examples for English words</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Url type="text/html" template="https://dictionary.feli.page/search/{searchTerms}"/>
+  <Url type="application/opensearchdescription+xml"
+     rel="self"
+     template="https://dictionary.feli.page/open-search.xml" />
+</OpenSearchDescription>

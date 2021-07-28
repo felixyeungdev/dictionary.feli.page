@@ -29,6 +29,13 @@ const PageHead = ({ word, data }: Props) => {
             {/* <meta name="apple-mobile-web-app-capable" content="yes" /> */}
             <meta name="description" content={description} />
             <meta name="theme-color" content="#000000" />
+
+            <link
+                rel="search"
+                href="/open-search.xml"
+                title="Feli Dictionary"
+                type="application/opensearchdescription+xml"
+            />
         </Head>
     );
 };
